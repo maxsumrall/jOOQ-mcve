@@ -14,7 +14,7 @@ import org.jooq.mcve.scala.tables.records.TestRecord
 
 /**
  * A class modelling foreign key relationships and constraints of tables in 
- * MCVE.
+ * mcve.
  */
 object Keys {
 
@@ -22,5 +22,5 @@ object Keys {
   // UNIQUE and PRIMARY KEY definitions
   // -------------------------------------------------------------------------
 
-  val PK_TEST: UniqueKey[TestRecord] = Internal.createUniqueKey(Test.TEST, DSL.name("PK_TEST"), Array(Test.TEST.ID).asInstanceOf[Array[TableField[TestRecord, _] ] ], true)
+  val TEST_PKEY: UniqueKey[TestRecord] = Internal.createUniqueKey(Test.TEST, DSL.name("test_pkey"), Array(Test.TEST.ID).asInstanceOf[Array[TableField[TestRecord, _] ] ], true)
 }

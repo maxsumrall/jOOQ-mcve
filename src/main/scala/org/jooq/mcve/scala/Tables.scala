@@ -8,12 +8,12 @@ import org.jooq.mcve.scala.tables.Test
 
 
 /**
- * Convenience access to all tables in MCVE.
+ * Convenience access to all tables in mcve.
  */
 object Tables {
 
   /**
-   * The table <code>MCVE.TEST</code>.
+   * The table <code>mcve.test</code>.
    */
-  lazy val TEST = Test.TEST
+  def TEST = Test.TEST
 }

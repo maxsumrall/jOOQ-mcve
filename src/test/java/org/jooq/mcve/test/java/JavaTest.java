@@ -1,23 +1,24 @@
 package org.jooq.mcve.test.java;
 
-import org.jooq.mcve.java.tables.records.TestRecord;
-import org.junit.Test;
-
 import static org.jooq.mcve.java.Tables.TEST;
 import static org.junit.Assert.assertEquals;
 
+import org.jooq.impl.DSL;
+import org.jooq.mcve.models.Status;
+import org.junit.Test;
+
 public class JavaTest extends AbstractTest {
 
-    @Test
-    public void mcveTest() {
-        TestRecord result =
-        ctx.insertInto(TEST)
-           .columns(TEST.VALUE)
-           .values(42)
-           .returning(TEST.ID)
-           .fetchOne();
+  @Test
+  public void mcveTest() {
+    ctx.insertInto(TEST)
+        .columns(TEST.STATUS)
+        .values(Status.GOOD)
+        .execute();
 
-        result.refresh();
-        assertEquals(42, (int) result.getValue());
-    }
+    Status status = ctx.select(TEST.STATUS).from(TEST).where(TEST.STATUS.eq(DSL.any(Status.GOOD)))
+        .fetchOneInto(Status.class);
+    
+    assertEquals(Status.GOOD, status);
+  }
 }

@@ -19,11 +19,13 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.EnumConverter;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
+import org.jooq.mcve.java.DefaultSchema;
 import org.jooq.mcve.java.Keys;
-import org.jooq.mcve.java.Mcve;
 import org.jooq.mcve.java.tables.records.TestRecord;
+import org.jooq.mcve.models.Status;
 
 
 /**
@@ -35,7 +37,7 @@ public class Test extends TableImpl<TestRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>MCVE.TEST</code>
+     * The reference instance of <code>TEST</code>
      */
     public static final Test TEST = new Test();
 
@@ -48,14 +50,14 @@ public class Test extends TableImpl<TestRecord> {
     }
 
     /**
-     * The column <code>MCVE.TEST.ID</code>.
+     * The column <code>TEST.ID</code>.
      */
-    public final TableField<TestRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<TestRecord, Long> ID = createField(DSL.name("ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>MCVE.TEST.VALUE</code>.
+     * The column <code>TEST.STATUS</code>.
      */
-    public final TableField<TestRecord, Integer> VALUE = createField(DSL.name("VALUE"), SQLDataType.INTEGER, this, "");
+    public final TableField<TestRecord, Status> STATUS = createField(DSL.name("STATUS"), SQLDataType.VARCHAR(2147483647), this, "", new EnumConverter<String, Status>(String.class, Status.class));
 
     private Test(Name alias, Table<TestRecord> aliased) {
         this(alias, aliased, null);
@@ -66,21 +68,21 @@ public class Test extends TableImpl<TestRecord> {
     }
 
     /**
-     * Create an aliased <code>MCVE.TEST</code> table reference
+     * Create an aliased <code>TEST</code> table reference
      */
     public Test(String alias) {
         this(DSL.name(alias), TEST);
     }
 
     /**
-     * Create an aliased <code>MCVE.TEST</code> table reference
+     * Create an aliased <code>TEST</code> table reference
      */
     public Test(Name alias) {
         this(alias, TEST);
     }
 
     /**
-     * Create a <code>MCVE.TEST</code> table reference
+     * Create a <code>TEST</code> table reference
      */
     public Test() {
         this(DSL.name("TEST"), null);
@@ -92,22 +94,22 @@ public class Test extends TableImpl<TestRecord> {
 
     @Override
     public Schema getSchema() {
-        return Mcve.MCVE;
+        return DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<TestRecord, Integer> getIdentity() {
-        return (Identity<TestRecord, Integer>) super.getIdentity();
+    public Identity<TestRecord, Long> getIdentity() {
+        return (Identity<TestRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<TestRecord> getPrimaryKey() {
-        return Keys.PK_TEST;
+        return Keys.CONSTRAINT_2;
     }
 
     @Override
     public List<UniqueKey<TestRecord>> getKeys() {
-        return Arrays.<UniqueKey<TestRecord>>asList(Keys.PK_TEST);
+        return Arrays.<UniqueKey<TestRecord>>asList(Keys.CONSTRAINT_2);
     }
 
     @Override
@@ -141,7 +143,7 @@ public class Test extends TableImpl<TestRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<Integer, Integer> fieldsRow() {
+    public Row2<Long, Status> fieldsRow() {
         return (Row2) super.fieldsRow();
     }
 }
